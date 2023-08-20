@@ -7,6 +7,15 @@ d3.json(queryURL).then(function (data){
     createFeatures(data.features);
 });
 
+// circle color function
+function circleColor(depth) {
+  if (depth < 10) return "green";
+  else if (depth < 30) return "greenyellow";
+  else if (depth < 50) return "yellow";
+  else if (depth < 70) return "orange";
+  else if (depth < 90) return "orangered";
+  else return "red";
+};
 
 function createFeatures(quakeFeatures) {
 
@@ -16,15 +25,6 @@ function createFeatures(quakeFeatures) {
         <p>${new Date(feature.properties.time)}</p>
         <p>Magnitude: ${feature.properties.mag}</p>
         <p>Depth: ${feature.geometry.coordinates[2]}</p>`);
-    }
-    // circle color function
-    function circleColor(depth) {
-        if (depth < 10) return "green";
-        else if (depth < 30) return "greenyellow";
-        else if (depth < 50) return "yellow";
-        else if (depth < 70) return "orange";
-        else if (depth < 90) return "orangered";
-        else return "red";
     }
 
     // layer that contains the features including the circleMarker attributes
@@ -36,7 +36,7 @@ function createFeatures(quakeFeatures) {
                 color: circleColor(feature.geometry.coordinates[2]),
                 weight: 0.1,
                 fillColor: circleColor(feature.geometry.coordinates[2]),
-                radius: feature.properties.mag *3})
+                radius: feature.properties.mag *4})
         }
     });
 
@@ -73,5 +73,37 @@ function createMap(quakes) {
       collapsed: false
     }).addTo(myMap);
   
+
+  
+  // add the legend to the map
+  let info = L.control({
+    position: "bottomright"
+    // legends: [{
+    //   label: ["-10 - 10", "10 - 30"],
+    //   type: "square",
+    //   color: ["#00FF00", "#adff2f"]
+    // }]
+  });
+
+  info.onAdd = function () {
+    let legend = L.DomUtil.create("div", "info legend");
+
+    depths = [-10, 10, 30, 50, 70, 90];
+    squareColors = ["#00FF00", "#adff2f", "#FFFF00", "#FFA500", "#ff4500", "#FF0000"]
+    squareLabels = [`<h3>Depth of Earthquakes<br>___________________</br></h3>`]
+
+    for (let i=0; i<depths.length; i++) {
+      legend.innerHTML += squareLabels.push(
+        "<i style='background:" + squareColors[i] + "'></i>" + 
+        depths[i] + (depths[i + 1] ? "&ndash;" + depths[i + 1] + "<br>" : "+")
+      );
+    }
+
+    legend.innerHTML = squareLabels.join(`<br>`);
+
+  return legend;
   };
   
+  info.addTo(myMap);
+
+};
