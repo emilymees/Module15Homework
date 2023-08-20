@@ -93,13 +93,18 @@ function createMap(quakes) {
     squareLabels = [`<h3>Depth of Earthquakes<br>___________________</br></h3>`]
 
     for (let i=0; i<depths.length; i++) {
-      legend.innerHTML += squareLabels.push(
-        "<i style='background:" + squareColors[i] + "'></i>" + 
+      legend.innerHTML += "<i style='background:" + squareColors[i] + "'></i>" + 
         depths[i] + (depths[i + 1] ? "&ndash;" + depths[i + 1] + "<br>" : "+")
-      );
     }
 
-    legend.innerHTML = squareLabels.join(`<br>`);
+    // for (let i=0; i<depths.length; i++) {
+    //   legend.innerHTML += squareLabels.push(
+    //     "<i style='color:" + squareColors[i] + "'></i>" + 
+    //     depths[i] + (depths[i + 1] ? "&ndash;" + depths[i + 1] + "<br>" : "+")
+    //   );
+    // }
+
+    // legend.innerHTML = squareLabels.join(`<br>`);
 
   return legend;
   };
