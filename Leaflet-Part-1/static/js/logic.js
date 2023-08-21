@@ -77,20 +77,17 @@ function createMap(quakes) {
   
   // add the legend to the map
   let info = L.control({
-    position: "bottomright"
-    // legends: [{
-    //   label: ["-10 - 10", "10 - 30"],
-    //   type: "square",
-    //   color: ["#00FF00", "#adff2f"]
-    // }]
+    position: "bottomright",
+    title: "Depth of Earthquakes"
   });
 
   info.onAdd = function () {
     let legend = L.DomUtil.create("div", "info legend");
 
     depths = [-10, 10, 30, 50, 70, 90];
-    squareColors = ["#00FF00", "#adff2f", "#FFFF00", "#FFA500", "#ff4500", "#FF0000"]
-    // squareLabels = [`<h3>Depth of Earthquakes<br>___________________</br></h3>`]
+    squareColors = ["green", "greenyellow", "yellow", "orange", "orangered", "red"]
+
+    legend.innerHTML += `<h3>Depth of Earthquakes<br>___________________</br></h3>`
 
 // Will at AskBCS helped me with getting the colors to show up in my legend. Turns out I needed
 // to add a .legend line of code in the css file for it to work
