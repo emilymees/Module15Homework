@@ -78,7 +78,6 @@ function createMap(quakes) {
   // add the legend to the map
   let info = L.control({
     position: "bottomright",
-    title: "Depth of Earthquakes"
   });
 
   info.onAdd = function () {
