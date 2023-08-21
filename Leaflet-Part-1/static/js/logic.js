@@ -90,8 +90,10 @@ function createMap(quakes) {
 
     depths = [-10, 10, 30, 50, 70, 90];
     squareColors = ["#00FF00", "#adff2f", "#FFFF00", "#FFA500", "#ff4500", "#FF0000"]
-    squareLabels = [`<h3>Depth of Earthquakes<br>___________________</br></h3>`]
+    // squareLabels = [`<h3>Depth of Earthquakes<br>___________________</br></h3>`]
 
+// Will at AskBCS helped me with getting the colors to show up in my legend. Turns out I needed
+// to add a .legend line of code in the css file for it to work
     for (let i=0; i<depths.length; i++) {
       legend.innerHTML += "<i style='background:" + squareColors[i] + "'></i>" + 
         depths[i] + (depths[i + 1] ? "&ndash;" + depths[i + 1] + "<br>" : "+")
